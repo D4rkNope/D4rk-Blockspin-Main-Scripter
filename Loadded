@@ -1,3 +1,5 @@
+-- getgenv().Mode = ""
+
 local currentMode = getgenv().Mode
 local targetUrl = ""
 
@@ -10,8 +12,8 @@ end
 if targetUrl ~= "" then
     pcall(function()
         game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "Script Loadded",
-            Text = currentMode .. " Block Spin Loaded",
+            Title = "LOADDED",
+            Text = currentMode .. " BLOC KSPIN SCRIPT LOADDED",
             Duration = 5
         })
     end)
