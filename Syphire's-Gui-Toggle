@@ -1,4 +1,4 @@
-local function CreateToggleButton(a, b)
+local function CreateButton(a, b)
 	if type(a) ~= "string" then
 		error("Image Error", 2)
 	end
@@ -8,26 +8,22 @@ local function CreateToggleButton(a, b)
 	if getgenv().OpenGuiButton then
 		getgenv().OpenGuiButton:Destroy()
 	end
-
 	local c = Instance.new("ScreenGui")
 	local d = Instance.new("Frame")
 	local e = Instance.new("UICorner")
 	local f = Instance.new("ImageButton")
 	local g = Instance.new("UICorner")
-
-	c.Parent = (gethui and gethui()) or game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-	c.Name = "ToggleButtonUI"
-	
+	local h = Instance.new("UIScale")
+	c.Parent = (gethui and gethui()) or game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	d.Parent = c
 	d.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	d.BackgroundTransparency = 0.5
 	d.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	d.BorderSizePixel = 0
+	d.AnchorPoint = Vector2.new(0.5, 0.5)
 	d.Position = UDim2.new(0.491, 0, 0, 65)
 	d.Size = UDim2.new(0, 44, 0, 44)
-
 	e.Parent = d
-
 	f.Parent = d
 	f.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	f.BackgroundTransparency = 1
@@ -36,65 +32,55 @@ local function CreateToggleButton(a, b)
 	f.Position = UDim2.new(0, 0, 0, 0)
 	f.Size = UDim2.new(1, 0, 1, 0)
 	f.Image = a
-
 	g.Parent = f
-
-	local uis = game:GetService("UserInputService")
-	local ts = game:GetService("TweenService")
-	local isDragging = false
-	local dragTolerance = 6
-	local dragStart = nil
-	local startPos = nil
-	local hasMoved = false
-	local isToggled = false
-
+	h.Parent = d
+	h.Scale = 0
+	local i = game:GetService("UserInputService")
+	local j = game:GetService("TweenService")
+	local k = false
+	local l = 6
+	local m = nil
+	local n = nil
+	local o = false
 	task.defer(function()
-		local absPos = d.AbsolutePosition
-		d.AnchorPoint = Vector2.new(0.5, 0.5)
-		d.Position = UDim2.new(0, absPos.X + 22, 0, absPos.Y + 22)
+		local p = d.AbsolutePosition + (d.AbsoluteSize / 2)
+		d.Position = UDim2.new(0, p.X, 0, p.Y)
+		j:Create(h, TweenInfo.new(0.6, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), {Scale = 1}):Play()
 	end)
-
-	f.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			isDragging = true
-			hasMoved = false
-			dragStart = input.Position
-			startPos = d.Position
-			ts:Create(d, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 36, 0, 36)}):Play()
+	f.InputBegan:Connect(function(p)
+		if p.UserInputType == Enum.UserInputType.MouseButton1 or p.UserInputType == Enum.UserInputType.Touch then
+			k = true
+			o = false
+			m = p.Position
+			n = d.Position
+			j:Create(h, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 0.85}):Play()
 		end
 	end)
-
-	uis.InputChanged:Connect(function(input)
-		if not isDragging then return end
-		if input.UserInputType ~= Enum.UserInputType.MouseMovement and input.UserInputType ~= Enum.UserInputType.Touch then return end
-		local delta = input.Position - dragStart
-		if not hasMoved then
-			if math.abs(delta.X) < dragTolerance and math.abs(delta.Y) < dragTolerance then return end
-			hasMoved = true
+	i.InputChanged:Connect(function(p)
+		if not k then return end
+		if p.UserInputType ~= Enum.UserInputType.MouseMovement and p.UserInputType ~= Enum.UserInputType.Touch then return end
+		local q = p.Position - m
+		if not o then
+			if math.abs(q.X) < l and math.abs(q.Y) < l then return end
+			o = true
 		end
-		ts:Create(d, TweenInfo.new(0.13, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-			Position = UDim2.new(0, startPos.X.Offset + delta.X, 0, startPos.Y.Offset + delta.Y)
-		}):Play()
+		j:Create(d, TweenInfo.new(0.13, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0, n.X.Offset + q.X, 0, n.Y.Offset + q.Y)}):Play()
 	end)
-
-	uis.InputEnded:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			isDragging = false
-			ts:Create(d, TweenInfo.new(0.1, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {Size = UDim2.new(0, 44, 0, 44)}):Play()
+	i.InputEnded:Connect(function(p)
+		if p.UserInputType == Enum.UserInputType.MouseButton1 or p.UserInputType == Enum.UserInputType.Touch then
+			k = false
+			j:Create(h, TweenInfo.new(0.4, Enum.EasingStyle.Elastic, Enum.EasingDirection.Out), {Scale = 1}):Play()
 		end
 	end)
-
 	f.MouseButton1Click:Connect(function()
-		if hasMoved then return end
-		isToggled = not isToggled
-		ts:Create(d, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Rotation = isToggled and 180 or 0}):Play()
+		if o then return end
 		b()
 	end)
-
 	getgenv().OpenGuiButton = c
-	return c
 end
 
-CreateToggleButton("rbxassetid://100795522583377", function()
-	Window:Toggle()
+CreateButton("rbxassetid://71750922306271", function()
+	if Window and Window.Toggle then
+		Window:Toggle()
+	end
 end)
