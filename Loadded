@@ -1,0 +1,21 @@
+-- getgenv().Mode = ""
+
+local currentMode = getgenv().Mode
+local targetUrl = ""
+
+if currentMode == "PVP" then
+    targetUrl = "https://api.jnkie.com/api/v1/luascripts/public/a175a15ceae1f1bbb0f8bb8bc69e15a4d771f70f18ff7a9ed2f5ef95ba317da8/download"
+elseif currentMode == "FARM" then
+    targetUrl = "https://api.jnkie.com/api/v1/luascripts/public/0ee9daea6ee264c69f5782cc4889e22449bc22ee82cd2f7c00ba9477fd59e8f4/download"
+end
+
+if targetUrl ~= "" then
+    pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "LOADDED",
+            Text = currentMode .. " BLOC KSPIN SCRIPT LOADDED",
+            Duration = 5
+        })
+    end)
+    loadstring(game:HttpGet(targetUrl))()
+end
