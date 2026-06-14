@@ -13,7 +13,7 @@ if targetUrl ~= "" then
     pcall(function()
         game:GetService("StarterGui"):SetCore("SendNotification", {
             Title = "MAIN SCRIPTER",
-            Text = currentMode .. "SCRIPT BLOCK SPIN LOADDED",
+            Text = currentMode .. " SCRIPT BLOCK SPIN LOADDED",
             Duration = 5
         })
     end)
