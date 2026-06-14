@@ -79,7 +79,7 @@ local function CreateButton(a, b)
 	getgenv().OpenGuiButton = c
 end
 
-CreateButton("rbxassetid://85372351620996", function()
+CreateButton("rbxassetid://98039743565733", function()
 	if Window and Window.Toggle then
 		Window:Toggle()
 	end
