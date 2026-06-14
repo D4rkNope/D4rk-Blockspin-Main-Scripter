@@ -22,7 +22,7 @@ local function CreateButton(a, b)
 	d.BorderSizePixel = 0
 	d.AnchorPoint = Vector2.new(0.5, 0.5)
 	d.Position = UDim2.new(0.491, 0, 0, 65)
-	d.Size = UDim2.new(0, 44, 0, 44)
+	d.Size = UDim2.new(0, 43, 0, 43)
 	e.Parent = d
 	f.Parent = d
 	f.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
