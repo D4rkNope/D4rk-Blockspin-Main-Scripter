@@ -12,8 +12,8 @@ end
 if targetUrl ~= "" then
     pcall(function()
         game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "LOADDED",
-            Text = currentMode .. " BLOC KSPIN SCRIPT LOADDED",
+            Title = "MAIN SCRIPTER",
+            Text = currentMode .. "SCRIPT BLOCK SPIN LOADDED",
             Duration = 5
         })
     end)
