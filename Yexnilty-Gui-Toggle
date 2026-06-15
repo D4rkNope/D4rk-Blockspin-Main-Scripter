@@ -24,7 +24,7 @@ local function CreateButton(a, b)
 	d.Position = UDim2.new(0.491, 0, 0, 65)
 	d.Size = UDim2.new(0, 43, 0, 43)
 	e.Parent = d
-    e.CornerRadius = UDim.new(1, 0)
+    e.CornerRadius = UDim.new(0.4, 0)
 	f.Parent = d
 	f.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	f.BackgroundTransparency = 1
@@ -34,7 +34,7 @@ local function CreateButton(a, b)
 	f.Size = UDim2.new(1, 0, 1, 0)
 	f.Image = a
 	g.Parent = f
-    g.CornerRadius = UDim.new(1, 0)
+    g.CornerRadius = UDim.new(0.4, 0)
 	h.Parent = d
 	h.Scale = 0
 	local i = game:GetService("UserInputService")
